@@ -26,3 +26,34 @@ public:
         return root;
     }
 };
+
+
+Easy Approach
+
+class Solution {
+public:
+    int preIndex = 0;
+    
+    TreeNode* buildTreeHelper(vector<int>& preorder, vector<int>& inorder, int instart, int inend){
+        if(instart> inend) return NULL;
+        TreeNode* root = new TreeNode(preorder[preIndex]);
+        preIndex++;
+
+        int inIndex;
+        for(int i =instart; i<inend; i++){
+            if(inorder[i]== root->val ){
+                inIndex = i;
+                break;
+            }
+        }
+        root->left = buildTreeHelper(preorder, inorder,instart, inIndex-1);
+        root->right = buildTreeHelper(preorder, inorder, inIndex+1, inend);
+        return root;
+
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        TreeNode* root = buildTreeHelper(preorder,inorder,0,inorder.size()-1);
+        return root;
+        
+    }
+};

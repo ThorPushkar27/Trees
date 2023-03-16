@@ -44,3 +44,50 @@ public:
         
     }
 };
+
+
+GFG Solution 
+isme key need not to be unique.
+
+Node* insert(Node* root, int Key) {
+    // Your code here
+    if(root==NULL){
+        return new Node(Key);
+        //return root;
+    }
+    Node*curr = root;
+    
+    while(true){
+        if(Key == curr->data) break;
+        if(Key<curr->data){
+            if(curr->left!=NULL){
+                //if(curr->data == Key ) break;
+                curr= curr->left;
+                
+            }
+            //curr= curr->left;
+            else{
+                curr->left = new Node(Key);
+                break;
+            }
+        }
+            
+        else{
+            if(curr->right!=NULL ){
+                //if(curr->data == Key) break;
+                curr=curr->right;
+                    
+            }
+                
+            else{
+                curr->right = new Node(Key);
+                break;
+            }
+
+                
+            
+        }
+    }
+    return root;
+}
+

@@ -1,0 +1,45 @@
+TC = O(N)
+SC = O(n)
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        TreeNode* curr = root;
+        vector<int>ans;
+        while(curr!=NULL){
+            if(curr->left==NULL){
+                ans.push_back(curr->val);
+                curr= curr->right;
+            }
+            else{
+                TreeNode* pred = curr->left;
+                while(pred->right!=NULL && pred->right!= curr){
+                    pred=pred->right;
+                }
+                if(pred->right==NULL){
+                    pred->right = curr; //New link generation
+                    curr=curr->left; //Moving to the left of the curr nodes.
+                }
+                else{
+                    pred->right =NULL; //Removing the new generated links
+                    ans.push_back(curr->val);
+                    curr= curr->right; // Moving right to the curr nodes.
+                }
+            }
+        }
+        return ans;
+          
+        
+    }
+};

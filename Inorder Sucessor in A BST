@@ -1,0 +1,23 @@
+TC = O(HEIGHT)
+SC = O(1)
+
+class Solution{
+  public:
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        Node* suck = NULL;
+        if(root == NULL) return NULL;
+        while(root!=NULL){
+            if(root->data<= x->data){
+                root = root->right;
+            }
+            else{
+                suck = root;
+                root = root->left;
+            }
+        }
+        return suck;
+        //Your code here
+    }
+};

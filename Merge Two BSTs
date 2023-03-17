@@ -1,0 +1,103 @@
+Code chal nhi tha...Per sahi lag raha tha
+Merge function me kuch issue aa raha h
+
+
+class Solution
+{
+    public:
+    //Function to return a list of integers denoting the node 
+    //values of both the BST in a sorted order.
+    vector<int>arr;
+    vector<int>inorder(Node* root){
+        if(root == NULL){
+            return arr;
+        }
+        inorder(root->left);
+        arr.push_back(root->data);
+        inorder(root->right);
+        return arr;
+        
+    }
+    
+    Node* inorderToBST(int s, int e, vector<int>&in){
+        // Base Case
+        if(s<e){
+            return NULL;
+        }
+        int mid = (s+e)/2;
+        Node* root = new Node(in[mid]);
+        root->left = inorderToBST(s,mid-1, in);
+        root->right = inorderToBST(mid+1,e, in);
+        return root;
+    }
+    vector<int>Merge(vector<int>&arr1, vector<int>&arr2){
+        vector<int>arr3(arr1.size()+arr2.size());
+        int i=0; 
+        int j=0;
+        int k=0;
+        while(i<arr1.size() && j<arr2.size()){
+            if(arr1[i]<arr2[j]){
+                arr3[k++]= arr1[i];
+                i++;
+            }
+            else{
+                arr3[k++]= arr2[j];
+                j++;
+            }
+        }
+        while(i<arr1.size()){
+            arr3[k++]=arr1[i];
+            i++;
+        }
+        while(j<arr2.size()){
+            arr3[k++]=arr2[j];
+            j++;
+        }
+        return arr3;
+    }
+    
+    
+    vector<int> merge(Node *root1, Node *root2)
+    {
+        vector<int>arr0;
+        vector<int>arr5;
+        arr0 = inorder(root1);
+        arr5 = inorder(root2);
+        vector<int>arr4 = Merge(arr0,arr5);
+        
+        //int s =0;
+        //int e = arr4.size() -1;
+        //return inorderToBST(s,e,arr4);
+        return arr4;
+        
+       //Your code here
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+
+   int t;
+   string tc;
+   getline(cin, tc);
+   t=stoi(tc);
+   while(t--)
+   {
+        string s; 
+       getline(cin, s);
+       Node* root1 = buildTree(s);
+
+       getline(cin, s);
+       Node* root2 = buildTree(s);
+    
+       // getline(cin, s);
+       Solution obj;
+       vector<int> vec = obj.merge(root1, root2);
+       for(int i=0;i<vec.size();i++)
+            cout << vec[i] << " ";
+        cout << endl;
+       ///cout<<"~"<<endl;
+   }
+   return 0;
+}
+// } Driver Code Ends
